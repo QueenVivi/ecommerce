@@ -34,6 +34,26 @@ export const getAllProducts = () => productsData.map((productData) => {
   }
 })
 
-export const getProductById = (id) => {
-  
+export const getProductById = async (productId) => {
+  const { 
+    id,
+    name,
+    description,
+    default_price,
+    images,
+    metadata
+  } = await stripe.products.retrieve(productId)
+
+  const { unit_amount } = pricesData.find((priceData) => priceData.id === default_price)
+
+  const price = unit_amount / 100
+
+  return {
+    id,
+    name,
+    description,
+    price,
+    images,
+    metadata
+  }
 }
