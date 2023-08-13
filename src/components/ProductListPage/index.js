@@ -41,7 +41,7 @@ const ProductListPage = () => {
         ? (
           <ol className="grid grid-rows-3 gap-4" >
             {filteredProducts.map((product) => {
-              const { id, images, name, price, metadata } = product
+              const { id, images, name, price } = product
 
               return (
                 <li key={id}>
