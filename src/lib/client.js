@@ -2,37 +2,38 @@ import Stripe from 'stripe'
 
 const stripe = new Stripe(process.env.REACT_APP_API_KEY)
 
-const { data: productsData } = await stripe.products.list({
-  limit: 10,
-})
+const getPrice = async (price_id) => {
+  const priceData = await stripe.prices.retrieve(price_id)
+  return priceData.unit_amount / 100
+}
 
-const { data: pricesData } = await stripe.prices.list({
-  limit: 10,
-})
+export const getAllProducts = async () => {
+  const { data: productsData } = await stripe.products.list({ limit: 10 })
+  
+  const products = await Promise.all(productsData.map(async (productData) => {
+    const {
+      id,
+      name,
+      description,
+      default_price,
+      images,
+      metadata,
+    } = productData
 
-export const getAllProducts = () => productsData.map((productData) => {
-  const {
-    id,
-    name,
-    description,
-    default_price,
-    images,
-    metadata,
-  } = productData
+    const price = await getPrice(default_price)
 
-  const { unit_amount } = pricesData.find((priceData) => priceData.id === default_price)
+    return {
+      id,
+      name,
+      price,
+      description,
+      images,
+      metadata,
+    }
+  }))
 
-  const price = unit_amount / 100
-
-  return {
-    id,
-    name,
-    price,
-    description,
-    images,
-    metadata,
-  }
-})
+  return products
+}
 
 export const getProductById = async (productId) => {
   const { 
@@ -41,12 +42,10 @@ export const getProductById = async (productId) => {
     description,
     default_price,
     images,
-    metadata
+    metadata,
   } = await stripe.products.retrieve(productId)
 
-  const { unit_amount } = pricesData.find((priceData) => priceData.id === default_price)
-
-  const price = unit_amount / 100
+  const price = await getPrice(default_price)
 
   return {
     id,
