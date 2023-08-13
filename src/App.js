@@ -1,12 +1,23 @@
-import ProductList from "./components/ProductList"
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom"
+import ProductListPage from "./components/ProductListPage"
 import Footer from "./components/Footer"
 import "./App.css"
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <ProductListPage />,
+  }
+])
+
 const App = () => (
-  <div>
-    <ProductList />  
+  <main>
+    <RouterProvider router={router} />
     <Footer />
-  </div>
+  </main>
 )
 
 export default App;

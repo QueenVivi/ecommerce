@@ -1,5 +1,4 @@
-import Stripe from "stripe"
-import formatPrice from "../../lib/formatPrice"
+import Stripe from 'stripe'
 
 const stripe = new Stripe(process.env.REACT_APP_API_KEY)
 
@@ -11,7 +10,7 @@ const { data: pricesData } = await stripe.prices.list({
   limit: 10,
 })
 
-const products = productsData.map((productData) => {
+export const getAllProducts = () => productsData.map((productData) => {
   const {
     id,
     name,
@@ -35,21 +34,6 @@ const products = productsData.map((productData) => {
   }
 })
 
-const ProductList = () => {
-  return (
-    <ol>
-      {products.map((product) => {
-        const { id, images, name, price, metadata } = product
-        return (
-          <li key={id}>
-            <h3>{name}</h3>
-            <img alt={name} src={images[0]} />
-            {formatPrice(price)}
-          </li>
-        )
-      })}
-    </ol>
-  )
+export const getProductById = (id) => {
+  
 }
-
-export default ProductList 
