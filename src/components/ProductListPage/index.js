@@ -30,12 +30,15 @@ const ProductListPage = () => {
 
   return (
     <section>
-      <select onChange={(e) => setCategory(e.target.value)}>
-        <option value="">All</option>
-        <option value="crystal">Crystals</option>
-        <option value="earring">Earrings</option>
-        <option value="necklace">Necklaces</option>
-      </select>
+      <aside className="mb-6 py-2">
+        <select onChange={(e) => setCategory(e.target.value)}>
+          <option value="">Show all</option>
+          <option value="crystal">Crystals</option>
+          <option value="earring">Earrings</option>
+          <option value="necklace">Necklaces</option>
+          <option value="pets">Pets</option>
+        </select>
+      </aside>
       {
         filteredProducts.length > 0
         ? (
@@ -48,7 +51,7 @@ const ProductListPage = () => {
                   <Link to={`/product/${id}`}>
                     <header
                       aria-label={`Product image of ${name}`}
-                      className="mb-2 pt-[100%] bg-cover bg-center"
+                      className="mb-2 pt-[100%] bg-cover bg-center rounded"
                       role="img"
                       style={{ backgroundImage: `url(${images[0]})` }}
                     ></header>
