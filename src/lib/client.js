@@ -8,7 +8,7 @@ const getPrice = async (price_id) => {
 }
 
 export const getAllProducts = async () => {
-  const { data: productsData } = await stripe.products.list({ limit: 10 })
+  const { data: productsData } = await stripe.products.list({ limit: 12 })
   
   const products = await Promise.all(productsData.map(async (productData) => {
     const {

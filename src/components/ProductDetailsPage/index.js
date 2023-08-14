@@ -21,20 +21,28 @@ const ProductDetailsPage = () => {
 
   if (!product) {
     return (
-      <main>
+      <article>
         Loading…
-      </main>
+      </article>
     )
   }
 
   return (
-    <main>
-      <img alt={product.name} src={product.images?.[0]} />
-      <h1>{product.name}</h1>
-      <p>{formatPrice(product.price)}</p>
-      <p>{product.description}</p>
-      <p>{product.metadata.category}</p>
-    </main>
+    <article className="grid md:grid-flow-col gap-8">
+      <img alt={product.name} className="rounded" src={product.images?.[0]} />
+      <section>
+        <h1>
+          <span className="text-2xl font-bold mb-2">{product.name}</span>
+          <span className="ml-2 px-2 py-1 rounded bg-gray-200 text-xs text-gray-800 capitalize">
+            {product.metadata.category}
+          </span>
+        </h1>
+        <p className="text-xl my-2">{formatPrice(product.price)}</p>
+        <button className="my-4 bg-purple-700 rounded px-4 py-2 font-medium text-white">Add to cart</button>
+        <hr className="my-8" />
+        <p className="my-4">{product.description}</p>
+      </section>
+    </article>
   )
 }
 

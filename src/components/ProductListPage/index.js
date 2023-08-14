@@ -30,26 +30,36 @@ const ProductListPage = () => {
 
   return (
     <section>
-      <select onChange={(e) => setCategory(e.target.value)}>
-        <option value="">All</option>
-        <option value="crystal">Crystals</option>
-        <option value="earring">Earrings</option>
-        <option value="necklace">Necklaces</option>
-      </select>
+      <aside className="mb-6 py-2">
+        <select onChange={(e) => setCategory(e.target.value)}>
+          <option value="">Show all</option>
+          <option value="crystal">Crystals</option>
+          <option value="earring">Earrings</option>
+          <option value="necklace">Necklaces</option>
+          <option value="pets">Pets</option>
+        </select>
+      </aside>
       {
         filteredProducts.length > 0
         ? (
-          <ol className="grid grid-rows-3 gap-4" >
+          <ol className="grid md:grid-cols-3 gap-6" >
             {filteredProducts.map((product) => {
               const { id, images, name, price } = product
 
               return (
                 <li key={id}>
                   <Link to={`/product/${id}`}>
-                    <h3>{name}</h3>
-                    <img alt={name} src={images[0]} />
-                    {formatPrice(price)}
+                    <header
+                      aria-label={`Product image of ${name}`}
+                      className="mb-2 pt-[100%] bg-cover bg-center rounded"
+                      role="img"
+                      style={{ backgroundImage: `url(${images[0]})` }}
+                    ></header>
                   </Link>
+                  <h3 className="font-bold">
+                    <Link to={`/product/${id}`}>{name}</Link>
+                  </h3>
+                  <p>{formatPrice(price)}</p>
                 </li>
               )
             })}
