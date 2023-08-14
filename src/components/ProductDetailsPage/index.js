@@ -29,7 +29,7 @@ const ProductDetailsPage = () => {
 
   return (
     <article className="grid md:grid-flow-col gap-8">
-      <img alt={product.name} src={product.images?.[0]} />
+      <img alt={product.name} className="rounded" src={product.images?.[0]} />
       <section>
         <h1>
           <span className="text-2xl font-bold mb-2">{product.name}</span>
