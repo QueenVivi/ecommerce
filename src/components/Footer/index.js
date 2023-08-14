@@ -2,10 +2,9 @@ const Footer = () => {
   const year = new Date().getFullYear()
   
   return (
-    <>
-      <h2>Northern Store</h2>
-      <p>{year} the New Bohemian Store </p>
-    </>
+    <footer className="mt-8 py-4 text-center">
+      <p>&copy; {year} The New Bohemian Store </p>
+    </footer>
   )
 }
 
